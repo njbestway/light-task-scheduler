@@ -27,7 +27,7 @@ type Task struct {
 	TaskItem interface{}
 
 	TaskStartTime time.Time // 框架赋予值
-	TaskEnbTime   time.Time // 框架赋予值
+	TaskEndTime   time.Time // 框架赋予值
 	// 任务状态，任务容器负责赋予值
 	TaskStatus TaskStatus
 	// 任务容器负责赋予值

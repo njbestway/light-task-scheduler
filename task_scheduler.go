@@ -451,7 +451,7 @@ func (s *TaskScheduler) updateOnce(ctx context.Context) {
 
 func (s *TaskScheduler) finshed(ctx context.Context, task *Task) {
 	// 添加到完成的任务 channel
-	task.TaskEnbTime = time.Now()
+	task.TaskEndTime = time.Now()
 
 	if s.config.EnableFinshedTaskList {
 		c := time.NewTimer(50 * time.Millisecond)
