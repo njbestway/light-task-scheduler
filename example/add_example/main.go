@@ -24,7 +24,7 @@ func add(ctx context.Context, ftask *lighttaskscheduler.Task) (data interface{},
 	if !ok {
 		return nil, fmt.Errorf("TaskItem not be set to AddTask")
 	}
-	log.Printf("start run task %s, Attempts: %d\n", ftask.TaskId, ftask.TaskAttemptsTime)
+	log.Printf("start run task %s, Attempts: %d\n", ftask.TaskId, ftask.TaskAttemptCount)
 	// 模拟 25 % 的概率出错
 	if rand.Intn(4) == 0 {
 		return nil, fmt.Errorf("error test")
@@ -157,10 +157,10 @@ func main() {
 	for task := range sch.FinshedTasks() {
 		if task.TaskStatus == lighttaskscheduler.TASK_STATUS_FAILED {
 			log.Printf("failed task %s, reason: %s, timecost: %dms, attempt times: %d\n",
-				task.TaskId, task.FailedReason, task.TaskEndTime.Sub(task.TaskStartTime).Milliseconds(), task.TaskAttemptsTime)
+				task.TaskId, task.FailedReason, task.TaskEndTime.Sub(task.TaskStartTime).Milliseconds(), task.TaskAttemptCount)
 		} else if task.TaskStatus == lighttaskscheduler.TASK_STATUS_SUCCESS {
 			log.Printf("success task %s, timecost: %dms, attempt times: %d\n", task.TaskId,
-				task.TaskEndTime.Sub(task.TaskStartTime).Milliseconds(), task.TaskAttemptsTime)
+				task.TaskEndTime.Sub(task.TaskStartTime).Milliseconds(), task.TaskAttemptCount)
 		}
 	}
 

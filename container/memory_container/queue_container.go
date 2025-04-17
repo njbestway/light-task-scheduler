@@ -99,7 +99,7 @@ func (q *queueContainer) ToRunningStatus(ctx context.Context, task *lighttasksch
 		atomic.AddInt32(&q.runningTaskCount, 1)
 	} else {
 		nt := t.(lighttaskscheduler.Task)
-		nt.TaskAttemptsTime = task.TaskAttemptsTime
+		nt.TaskAttemptCount = task.TaskAttemptCount
 		q.runningTaskMap.Store(task.TaskId, nt)
 	}
 	return task, nil

@@ -33,7 +33,7 @@ type Task struct {
 	// 任务容器负责赋予值
 	FailedReason string
 	// 任务已经重试的次数，任务容器负责赋予值
-	TaskAttemptsTime int32
+	TaskAttemptCount int32
 }
 
 // AsyncTaskStatus 异步任务状态

@@ -167,7 +167,7 @@ func (e *videoCutSqlContainer) ToRunningStatus(ctx context.Context, ftask *frame
 			"status":        framework.TASK_STATUS_RUNNING,
 			"start_time":    t,
 			"work_task_id":  task.WorkTaskId,
-			"attempts_time": ftask.TaskAttemptsTime,
+			"attempts_time": ftask.TaskAttemptCount,
 		})
 	if sql.Error != nil {
 		return ftask, fmt.Errorf("db update error: %v", sql.Error)

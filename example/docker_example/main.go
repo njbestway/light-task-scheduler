@@ -15,7 +15,7 @@ import (
 func main() {
 	container := memeorycontainer.MakeQueueContainer(10000, 100*time.Millisecond)
 	scanInterval := 50 * time.Millisecond
-	// 构建裁剪任务执行器
+	// 构建Docker任务执行器
 	act := actuator.MakeDockerActuator(nil)
 	sch, _ := lighttaskscheduler.MakeScheduler(
 		container, act, nil,
@@ -48,10 +48,10 @@ func main() {
 	for task := range sch.FinshedTasks() {
 		if task.TaskStatus == lighttaskscheduler.TASK_STATUS_FAILED {
 			log.Printf("failed task %s, reason: %s, timecost: %dms, attempt times: %d\n",
-				task.TaskId, task.FailedReason, task.TaskEndTime.Sub(task.TaskStartTime).Milliseconds(), task.TaskAttemptsTime)
+				task.TaskId, task.FailedReason, task.TaskEndTime.Sub(task.TaskStartTime).Milliseconds(), task.TaskAttemptCount)
 		} else if task.TaskStatus == lighttaskscheduler.TASK_STATUS_SUCCESS {
 			log.Printf("success task %s, timecost: %dms, attempt times: %d\n", task.TaskId,
-				task.TaskEndTime.Sub(task.TaskStartTime).Milliseconds(), task.TaskAttemptsTime)
+				task.TaskEndTime.Sub(task.TaskStartTime).Milliseconds(), task.TaskAttemptCount)
 		}
 	}
 

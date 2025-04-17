@@ -354,8 +354,8 @@ func (s *TaskScheduler) updateCallbackTask() {
 			defer s.wg.Done()
 			if task.TaskStatus == TASK_STATUS_FAILED {
 				// 失败可以重试
-				if task.TaskAttemptsTime < s.config.MaxFailedAttempts {
-					task.TaskAttemptsTime++
+				if task.TaskAttemptCount < s.config.MaxFailedAttempts {
+					task.TaskAttemptCount++
 					newTask, _, err := s.Actuator.Start(s.ctx, &task)
 					// 尝试重启失败
 					if err != nil {
@@ -408,8 +408,8 @@ func (s *TaskScheduler) updateOnce(ctx context.Context) {
 					return
 				}
 				// 失败可以重试
-				if task.TaskAttemptsTime < s.config.MaxFailedAttempts {
-					task.TaskAttemptsTime++
+				if task.TaskAttemptCount < s.config.MaxFailedAttempts {
+					task.TaskAttemptCount++
 					newTask, _, err := s.Actuator.Start(ctx, &task)
 					// 尝试重启失败
 					if err != nil {
